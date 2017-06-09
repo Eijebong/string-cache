@@ -458,8 +458,8 @@ impl<Static: StaticAtomSet> Serialize for Atom<Static> {
     }
 }
 
-impl<Static: StaticAtomSet> Deserialize for Atom<Static> {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer {
+impl<'de, Static: StaticAtomSet> Deserialize<'de> for Atom<Static> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: Deserializer<'de> {
         let string: String = try!(Deserialize::deserialize(deserializer));
         Ok(Atom::from(string))
     }
